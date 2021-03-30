@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<project name="simulatorlauncher" default="create" basedir=".">
+
+	<!--init property-->
+	<target name="init" >
+		<property name="jar_filename1" value="../launcher.jar"/>
+		<property name="jar_filename2" value="../launcher.bin"/>
+		<property name="manifest_filename" value="mc.mf"/>
+		<property name="main_class1" value="soars.tool.simulator.starter.main.Application"/>
+		<property name="main_class2" value="soars.tool.simulator.launcher.main.Application"/>
+	</target>
+
+	<!-- create -->
+	<target name="create" depends="init">
+
+		<!-- create manifest file -->
+		<manifest file="${manifest_filename}">
+			<attribute name="Main-Class" value="${main_class1}"/>
+		</manifest>
+
+		<!-- create jar file -->
+		<jar jarfile="${jar_filename1}"
+			manifest="${manifest_filename}"
+			basedir="../../../../../classes"
+			includes="soars/tool/simulator/starter/**, soars/common/**"
+		/>
+
+		<!-- remove manifest file -->
+		<delete file="${manifest_filename}" />
+
+		<!-- create manifest file -->
+		<manifest file="${manifest_filename}">
+			<attribute name="Main-Class" value="${main_class2}"/>
+		</manifest>
+
+		<!-- create jar file -->
+		<jar jarfile="${jar_filename2}"
+			manifest="${manifest_filename}"
+			basedir="../../../../../classes"
+			includes="soars/tool/simulator/launcher/**, soars/common/**"
+		/>
+
+		<!-- remove manifest file -->
+		<delete file="${manifest_filename}" />
+
+		<!-- copy jar file -->
+		<copy file="${jar_filename1}"
+		todir="../../../../../../Work/4.1/tepco"/>
+		<copy file="${jar_filename2}"
+		todir="../../../../../../Work/4.1/tepco"/>
+
+	</target>
+
+	<!-- clean -->
+	<target name="clean" depends="init">
+		<delete file="${jar_filename1}" />
+		<delete file="${jar_filename2}" />
+	</target>
+
+</project>
