@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<project name="gaming1" default="create" basedir=".">
+
+	<!--init property-->
+	<target name="init" >
+		<property name="jar_filename" value="../gaming1.jar"/>
+	</target>
+
+	<!-- create -->
+	<target name="create" depends="init">
+
+		<!-- create jar file -->
+		<jar jarfile="${jar_filename}"
+    	basedir="../../../../../../classes"
+			includes="soars/library/adapter/gaming1/**, soars/common/**"
+		/>
+
+	</target>
+
+	<!-- clean -->
+	<target name="clean" depends="init">
+		<delete file="${jar_filename}" />
+	</target>
+
+</project>
