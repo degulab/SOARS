@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<project name="initialdatafilemakerfromdb" default="create" basedir=".">
+
+	<!--init property-->
+	<target name="init" >
+		<property name="jar_filename" value="../initialdatafilemakerfromdb.jar"/>
+		<property name="manifest_filename" value="mc.mf"/>
+		<property name="main_class" value="soars.tool.initial_data_file_maker.database.Application"/>
+		<property name="runtime_jar_filename" value="../../../library/jdbc/sqlite-jdbc-3.27.2.1.jar ../../../library/jackson/jackson-core-2.9.8.jar ../../../library/jackson/jackson-databind-2.9.8.jar ../../../library/jackson/jackson-annotations-2.9.8.jar"/>
+	</target>
+
+	<!-- create -->
+	<target name="create" depends="init">
+
+		<!-- create manifest file -->
+		<manifest file="${manifest_filename}">
+			<attribute name="Main-Class" value="${main_class}"/>
+			<attribute name="Class-Path" value="${runtime_jar_filename}"/>
+		</manifest>
+
+		<!-- create jar file -->
+		<jar jarfile="${jar_filename}"
+			manifest="${manifest_filename}"
+    		basedir="../../../../../../classes"
+			includes="soars/tool/initial_data_file_maker/database/**, soars/common/**"
+		/>
+
+		<!-- remove manifest file -->
+		<delete file="${manifest_filename}" />
+
+		<!-- copy jar file -->
+		<copy file="${jar_filename}"
+		todir="../../../../../../../Work/5.0/soars/bin/utility/initial_data_file_maker/database"/>
+
+	</target>
+
+	<!-- clean -->
+	<target name="clean" depends="init">
+		<delete file="${jar_filename}" />
+	</target>
+
+</project>
